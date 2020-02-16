@@ -4,8 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-
-    tools:context=".MainActivity">
+    android:background="@drawable/another_bac_here"
+    tools:context=".U_LOGIN">
 
 
     <androidx.cardview.widget.CardView
@@ -66,6 +66,16 @@
                 android:textColorHint="#8AFFFFFF"
                 android:drawableStart="@drawable/u_pass" />
 
+            <ProgressBar
+                android:id="@+id/login_progress_bar"
+                style="?android:attr/progressBarStyle"
+                android:layout_width="wrap_content"
+                android:background="@drawable/login_btn"
+                android:layout_centerInParent="true"
+                android:layout_height="wrap_content"
+                android:visibility="invisible"
+                />
+
             <Button
                 android:id="@+id/login_btn"
                 android:layout_width="135dp"
@@ -124,6 +134,8 @@
                 android:layout_marginTop="11dp"
                 android:layout_marginRight="1dp"
                 android:background="#D2FF9100" />
+
+
 
 
         </RelativeLayout>

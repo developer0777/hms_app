@@ -12,6 +12,7 @@ import android.text.TextWatcher;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
@@ -37,6 +38,7 @@ public class register extends AppCompatActivity {
     private Button Sign_up_btn;
     private String emailPattern = "[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+";
     public  String check        = "Ahmad";
+    private ProgressBar progressBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,6 +51,7 @@ public class register extends AppCompatActivity {
         phone        = findViewById(R.id.phone_reg);
         address        = findViewById(R.id.pass_adress);
         Sign_up_btn  = findViewById(R.id.sign_up_btn);
+        progressBar  = findViewById(R.id.progressBar);
 
         address.addTextChangedListener(new TextWatcher() {
             @Override
@@ -139,6 +142,7 @@ public class register extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
+
                 checkEmailPassword();
 
             }
@@ -186,8 +190,8 @@ public class register extends AppCompatActivity {
     private void checkEmailPassword(){
         if(email.getText().toString().matches(emailPattern)){
 
-
-            String url ="https://realprotrainingsolutions.com/andriod/insert_patient.php";
+            progressBar.setVisibility(View.VISIBLE);
+            String url ="https://realprotrainingsolutions.com/andriod/user.php";
 
             Sign_up_btn.setEnabled(false);
             Sign_up_btn.setTextColor(Color.argb(50,255,255,255));
@@ -195,7 +199,25 @@ public class register extends AppCompatActivity {
                     new Response.Listener<String>() {
                         @Override
                         public void onResponse(String response) {
-                            Toast.makeText(getApplicationContext(),"success",Toast.LENGTH_SHORT).show();
+
+                            try {
+                                JSONObject jsonObject = new JSONObject(response);
+                                Toast.makeText(getApplicationContext(),jsonObject.getString("message"),Toast.LENGTH_SHORT).show();
+                                boolean error = jsonObject.getBoolean("error");
+
+                                if (error == false){
+
+                                    Intent intent = new Intent(getApplicationContext(),U_LOGIN.class);
+                                    startActivity(intent);
+                                    finish();
+
+                                }else{
+                                    progressBar.setVisibility(View.INVISIBLE);
+                                }
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+
                         }
                     }, new Response.ErrorListener() {
                 @Override

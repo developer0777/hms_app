@@ -11,18 +11,31 @@ import android.text.TextWatcher;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
+
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class U_LOGIN extends AppCompatActivity {
 
     public  TextView        dont_have_an_account;
     private EditText        email,password;
     private Button          login_btn;
-    private FirebaseAuth    firebaseAuth;
-    private FirebaseUser    user;
+    private ProgressBar     progressBar;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,13 +47,10 @@ public class U_LOGIN extends AppCompatActivity {
         email                = findViewById(R.id.user_name);
         password             = findViewById(R.id.password);
         login_btn            = findViewById(R.id.login_btn);
-        firebaseAuth         = FirebaseAuth.getInstance();
-        user                 = firebaseAuth.getCurrentUser();
+        progressBar          = findViewById(R.id.login_progress_bar);
 
-        if(user != null){
-            finish();
-            startActivity(new Intent(this,MainActivity.class));
-        }
+
+
 
 
         dont_have_an_account.setOnClickListener(new View.OnClickListener() {
@@ -122,6 +132,60 @@ public class U_LOGIN extends AppCompatActivity {
     }
 
     public void login_user(){
+
+        progressBar.setVisibility(View.VISIBLE);
+        String url ="https://realprotrainingsolutions.com/andriod/user.php";
+
+        login_btn.setEnabled(false);
+        login_btn.setTextColor(Color.argb(50,255,255,255));
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, url,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+
+
+                        try {
+                            JSONObject jsonObject = new JSONObject(response);
+                            Toast.makeText(getApplicationContext(),jsonObject.getString("message"),Toast.LENGTH_SHORT).show();
+                            boolean error = jsonObject.getBoolean("error");
+
+                            if (error == false){
+
+                                Intent intent = new Intent(getApplicationContext(),MainActivity.class);
+                                startActivity(intent);
+                                finish();
+
+                            }else{
+                                progressBar.setVisibility(View.INVISIBLE);
+                            }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+
+                        }
+
+                    }
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Toast.makeText(getApplicationContext(),"Request Error",Toast.LENGTH_SHORT).show();
+            }
+        }){
+            @Override
+            protected Map<String, String> getParams() {
+                Map<String,String> params = new HashMap<>();
+                String check = "ahmad";
+                params.put("logging_request",check);
+                params.put("p_email",email.getText().toString());
+                params.put("p_password",password.getText().toString());
+
+                return params;
+            }
+        };
+
+        RequestQueue requestQueue = Volley.newRequestQueue(this);
+        requestQueue.add(stringRequest);
+
+
 
     }
 }
