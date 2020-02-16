@@ -23,8 +23,6 @@ import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
-import com.google.firebase.auth.AuthResult;
-import com.google.firebase.auth.FirebaseAuth;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -34,10 +32,9 @@ import java.util.Map;
 
 public class register extends AppCompatActivity {
 
-    private EditText fullname,email,password,phone;
+    private EditText fullname,email,password,phone,address;
 
     private Button Sign_up_btn;
-    private FirebaseAuth firebaseAuth;
     private String emailPattern = "[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+";
     public  String check        = "Ahmad";
 
@@ -50,9 +47,25 @@ public class register extends AppCompatActivity {
         email        = findViewById(R.id.email_reg);
         password     = findViewById(R.id.pass_reg);
         phone        = findViewById(R.id.phone_reg);
+        address        = findViewById(R.id.pass_adress);
         Sign_up_btn  = findViewById(R.id.sign_up_btn);
 
-        firebaseAuth = FirebaseAuth.getInstance();
+        address.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                checkInputs();
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
 
         email.addTextChangedListener(new TextWatcher() {
             @Override
@@ -137,8 +150,24 @@ public class register extends AppCompatActivity {
             if(!TextUtils.isEmpty(fullname.getText())){
 
                 if(!TextUtils.isEmpty(password.getText()) && password.length() >= 8){
-                    Sign_up_btn.setEnabled(true);
-                    Sign_up_btn.setTextColor(Color.rgb(255,255,255));
+
+                    if(!TextUtils.isEmpty(address.getText())){
+
+                        if(!TextUtils.isEmpty(phone.getText())){
+
+                            Sign_up_btn.setEnabled(true);
+                            Sign_up_btn.setTextColor(Color.rgb(255,255,255));
+
+                        }else{
+                            Sign_up_btn.setEnabled(false);
+                            Sign_up_btn.setTextColor(Color.argb(50,255,255,255));
+                        }
+
+                    }else{
+                        Sign_up_btn.setEnabled(false);
+                        Sign_up_btn.setTextColor(Color.argb(50,255,255,255));
+                    }
+
                 }else{
                     Sign_up_btn.setEnabled(false);
                     Sign_up_btn.setTextColor(Color.argb(50,255,255,255));
@@ -158,7 +187,7 @@ public class register extends AppCompatActivity {
         if(email.getText().toString().matches(emailPattern)){
 
 
-            String url ="https://realprotrainingsolutions.com/andriod/insert_user.php";
+            String url ="https://realprotrainingsolutions.com/andriod/insert_patient.php";
 
             Sign_up_btn.setEnabled(false);
             Sign_up_btn.setTextColor(Color.argb(50,255,255,255));
@@ -177,11 +206,13 @@ public class register extends AppCompatActivity {
                 @Override
                 protected Map<String, String> getParams() {
                     Map<String,String> params = new HashMap<>();
-                    params.put("add_user",check);
-                    params.put("full_name",fullname.getText().toString());
-                    params.put("email",email.getText().toString());
-                    params.put("password",password.getText().toString());
-                    params.put("phone",phone.getText().toString());
+                    params.put("add_patient",check);
+                    params.put("p_name",fullname.getText().toString());
+                    params.put("p_email",email.getText().toString());
+                    params.put("p_pass",password.getText().toString());
+                    params.put("p_phone",phone.getText().toString());
+                    params.put("p_add",address.getText().toString());
+
                     return params;
                 }
             };
@@ -189,22 +220,6 @@ public class register extends AppCompatActivity {
             RequestQueue requestQueue = Volley.newRequestQueue(this);
             requestQueue.add(stringRequest);
 
-//            firebaseAuth.createUserWithEmailAndPassword(email.getText().toString(),password.getText().toString())
-//                    .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-//                        @Override
-//                        public void onComplete(@NonNull Task<AuthResult> task) {
-//                            if(task.isSuccessful()){
-//
-//                                Toast.makeText(getApplicationContext(),"Loading",Toast.LENGTH_SHORT).show();
-//                                Intent mainIntent = new Intent(register.this,MainActivity.class);
-//                                startActivity(mainIntent);
-//                                finish();
-//                            }else{
-//                                String error = task.getException().getMessage();
-//                                Toast.makeText(getApplicationContext(),error,Toast.LENGTH_SHORT).show();
-//                            }
-//                        }
-//                    });
 
         }else{
             email.setError("Invalid Email Address");
