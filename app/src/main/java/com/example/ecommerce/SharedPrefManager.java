@@ -47,6 +47,23 @@ public class SharedPrefManager {
         return false;
     }
 
+    public int getUserId(){
+        SharedPreferences sharedPreferences = mCtx.getSharedPreferences(SHARED_PREF_NAME,Context.MODE_PRIVATE);
+        return sharedPreferences.getInt(KEY_USER_ID,0);
+
+    }
+
+    public String getUserEmail(){
+        SharedPreferences sharedPreferences = mCtx.getSharedPreferences(SHARED_PREF_NAME,Context.MODE_PRIVATE);
+        return sharedPreferences.getString(KEY_EMAIL,null);
+
+    }
+
+    public String getUserName(){
+        SharedPreferences sharedPreferences = mCtx.getSharedPreferences(SHARED_PREF_NAME,Context.MODE_PRIVATE);
+        return sharedPreferences.getString(KEY_USER_NAME,null);
+    }
+
     public boolean logout(){
         SharedPreferences sharedPreferences = mCtx.getSharedPreferences(SHARED_PREF_NAME,Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();

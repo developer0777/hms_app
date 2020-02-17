@@ -34,7 +34,7 @@
 
         />
 
-    <EditText
+    <Spinner
         android:id="@+id/specs_select"
         android:layout_alignBottom="@+id/appoint_logo_u"
         android:layout_width="match_parent"
@@ -44,41 +44,52 @@
         android:layout_marginLeft="40dp"
         android:layout_marginRight="40dp"
         android:background="@drawable/edit_text_login"
-        android:padding="12dp"
         android:textColorHint="#85FFFFFF"
+        android:textColor="#85FFFFFF"
         android:textSize="16sp"
-
+        android:paddingLeft="7dp"
 
         />
 
-    <EditText
+    <Spinner
         android:id="@+id/doctor_select"
         android:layout_alignBottom="@+id/specs_select"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Select Doctor"
         android:layout_marginBottom="-70dp"
         android:layout_marginLeft="40dp"
         android:layout_marginRight="40dp"
         android:background="@drawable/edit_text_login"
-        android:padding="12dp"
         android:textColorHint="#85FFFFFF"
         android:textSize="16sp"
+        android:paddingLeft="7dp"
 
 
         />
+
+            <ProgressBar
+                android:id="@+id/progressBar"
+                style="?android:attr/progressBarStyle"
+                android:layout_width="wrap_content"
+                android:background="@drawable/login_btn"
+                android:layout_centerInParent="true"
+                android:layout_height="wrap_content"
+                android:visibility="invisible"
+                />
 
     <EditText
         android:id="@+id/doc_fee"
         android:layout_alignBottom="@+id/doctor_select"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Select Doctor"
+        android:hint="Fee"
+        android:visibility="invisible"
         android:layout_marginBottom="-70dp"
         android:layout_marginLeft="40dp"
         android:layout_marginRight="40dp"
         android:background="@drawable/edit_text_login"
         android:padding="12dp"
+        android:editable="false"
         android:textColorHint="#85FFFFFF"
         android:textSize="16sp"
 
@@ -94,6 +105,7 @@
                 android:layout_marginBottom="-70dp"
                 android:layout_marginLeft="40dp"
                 android:layout_marginRight="40dp"
+                android:visibility="invisible"
                 android:background="@drawable/edit_text_login"
                 android:padding="12dp"
                 android:textColorHint="#85FFFFFF"
@@ -109,6 +121,7 @@
                 android:layout_centerHorizontal="true"
                 android:enabled="false"
                 android:backgroundTint="#FF9100"
+                android:visibility="invisible"
                 android:background="@drawable/login_btn"
                 android:layout_marginBottom="-94dp"
                 android:text="@string/get_appointment"

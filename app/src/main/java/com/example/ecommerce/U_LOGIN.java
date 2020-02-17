@@ -156,7 +156,7 @@ public class U_LOGIN extends AppCompatActivity {
                                                 jsonObject.getString("full_name")
                                         );
 
-                                Intent intent = new Intent(getApplicationContext(),MainActivity.class);
+                                Intent intent = new Intent(getApplicationContext(),c_appointment.class);
                                 startActivity(intent);
                                 finish();
 
@@ -164,6 +164,7 @@ public class U_LOGIN extends AppCompatActivity {
                                 progressBar.setVisibility(View.INVISIBLE);
                             }
                         } catch (JSONException e) {
+
                             e.printStackTrace();
 
                         }
