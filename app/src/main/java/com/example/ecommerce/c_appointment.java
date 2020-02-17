@@ -3,6 +3,7 @@ package com.example.ecommerce;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.DatePickerDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
@@ -62,6 +63,7 @@ public class c_appointment extends AppCompatActivity {
         create_appoint_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                progressBar.setVisibility(View.VISIBLE);
                 insertAppointment(URL);
             }
         });
@@ -130,6 +132,14 @@ public class c_appointment extends AppCompatActivity {
                         try{
 
                             JSONObject jsonObject = new JSONObject(response);
+                            Toast.makeText(getApplicationContext(),jsonObject.getString("message"),Toast.LENGTH_LONG).show();
+
+                            if(jsonObject.getBoolean("error") == false){
+
+                                Intent intent = new Intent(c_appointment.this,MainActivity.class);
+                                startActivity(intent);
+
+                            }
 
                         }catch (JSONException e){
                             Toast.makeText(getApplicationContext(),"Error in inserting Data",Toast.LENGTH_LONG).show();
@@ -143,14 +153,18 @@ public class c_appointment extends AppCompatActivity {
             @Override
             public void onErrorResponse(VolleyError error) {
                 Toast.makeText(getApplicationContext(),"Request Error",Toast.LENGTH_LONG).show();
+                progressBar.setVisibility(View.INVISIBLE);
             }
         }){
             @Override
             protected Map<String, String> getParams() {
                 Map<String,String> params = new HashMap<>();
                 String check_result = "aa";
-                params.put("get_fee",check_result);
-                params.put("p_id",check_result);
+                params.put("insert_appointment",check_result);
+                params.put("p_id",SharedPrefManager.getInstance(c_appointment.this).getUserId()+"");
+                params.put("doctor",doctor_spinner.getItemAtPosition(doctor_spinner.getSelectedItemPosition()).toString());
+                params.put("spec",spec_spinner.getItemAtPosition(spec_spinner.getSelectedItemPosition()).toString());
+                params.put("date",appoint_date.getText().toString());
 
                 return params;
             }
