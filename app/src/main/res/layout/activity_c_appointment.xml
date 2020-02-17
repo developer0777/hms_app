@@ -1,9 +1,121 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/another_bac_here"
     tools:context=".c_appointment">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:cardBackgroundColor="#22FFFFFF"
+
+        >
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="#45FFFFFF"
+            >
+
+    <TextView
+        android:id="@+id/appoint_logo_u"
+        android:layout_width="match_parent"
+        android:layout_height="120dp"
+        android:layout_alignParentTop="true"
+        android:gravity="center"
+        android:drawableTop="@drawable/appoint_logo"
+        android:text="Create Appointment"
+        android:textColor="#FFFFFF"
+        android:textSize="24sp"
+        android:background="@drawable/upper_style"
+
+        />
+
+    <EditText
+        android:id="@+id/specs_select"
+        android:layout_alignBottom="@+id/appoint_logo_u"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Doctor Fee"
+        android:layout_marginBottom="-90dp"
+        android:layout_marginLeft="40dp"
+        android:layout_marginRight="40dp"
+        android:background="@drawable/edit_text_login"
+        android:padding="12dp"
+        android:textColorHint="#85FFFFFF"
+        android:textSize="16sp"
+
+
+        />
+
+    <EditText
+        android:id="@+id/doctor_select"
+        android:layout_alignBottom="@+id/specs_select"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Select Doctor"
+        android:layout_marginBottom="-70dp"
+        android:layout_marginLeft="40dp"
+        android:layout_marginRight="40dp"
+        android:background="@drawable/edit_text_login"
+        android:padding="12dp"
+        android:textColorHint="#85FFFFFF"
+        android:textSize="16sp"
+
+
+        />
+
+    <EditText
+        android:id="@+id/doc_fee"
+        android:layout_alignBottom="@+id/doctor_select"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Select Doctor"
+        android:layout_marginBottom="-70dp"
+        android:layout_marginLeft="40dp"
+        android:layout_marginRight="40dp"
+        android:background="@drawable/edit_text_login"
+        android:padding="12dp"
+        android:textColorHint="#85FFFFFF"
+        android:textSize="16sp"
+
+
+        />
+
+            <TextView
+                android:id="@+id/appoint_date"
+                android:layout_alignBottom="@+id/doc_fee"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Select Date"
+                android:layout_marginBottom="-70dp"
+                android:layout_marginLeft="40dp"
+                android:layout_marginRight="40dp"
+                android:background="@drawable/edit_text_login"
+                android:padding="12dp"
+                android:textColorHint="#85FFFFFF"
+                android:textColor="#85FFFFFF"
+                android:textSize="16sp"
+                />
+
+            <Button
+                android:id="@+id/create_appoint_btn"
+                android:layout_width="135dp"
+                android:layout_height="wrap_content"
+                android:layout_alignBottom="@id/appoint_date"
+                android:layout_centerHorizontal="true"
+                android:enabled="false"
+                android:backgroundTint="#FF9100"
+                android:background="@drawable/login_btn"
+                android:layout_marginBottom="-94dp"
+                android:text="@string/get_appointment"
+                />
+
+        </RelativeLayout>
+
+    </androidx.cardview.widget.CardView>
+
+</RelativeLayout>
