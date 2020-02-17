@@ -31,7 +31,7 @@ import java.util.Map;
 
 public class c_appointment extends AppCompatActivity {
 
-    private EditText doc_fee;
+    private EditText doc_fee,ahmad;
     private TextView appoint_date;
     private Calendar calendar;
     private Spinner spec_spinner,doctor_spinner;
