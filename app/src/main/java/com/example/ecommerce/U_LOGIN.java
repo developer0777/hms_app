@@ -151,6 +151,13 @@ public class U_LOGIN extends AppCompatActivity {
 
                             if (error == false){
 
+                                SharedPrefManager.getInstance(getApplicationContext())
+                                        .userLogin(
+                                                jsonObject.getInt("p_id"),
+                                                jsonObject.getString("email"),
+                                                jsonObject.getString("full_name")
+                                        );
+
                                 Intent intent = new Intent(getApplicationContext(),MainActivity.class);
                                 startActivity(intent);
                                 finish();
